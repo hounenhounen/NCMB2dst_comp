@@ -35,18 +35,20 @@ public class SaveScore : MonoBehaviour {
 	// mobile backendに接続---------------------
 	---
 	public void save( string name, int score ) {
-	  //データストアにスコアクラスを定義
+	    //データストアにスコアクラスを定義
 	    //あらかじめ定義していない場合は自動で作成される
 		NCMBObject obj = new NCMBObject ("Score");
 		
-		//obj["name"]でKeyを　=nameでvalueを設定
+		//ランンキングに表示する名前を保存
+		//obj["name"]でKeyをnameでvalueを設定
 		obj ["name"] = name;
 		
-		//obj["score"]でKeyを　=scoreでvalueを設定
+		//ランンキングに表示するスコアを保存
+		//obj["score"]でKeyをscoreでvalueを設定
 		obj ["score"] = score;
 		
-		//obj["Log"]でKeyを　= Player.posListでvalueを設定
-		  //走行ログの取得方法は後述
+		//ゴースト生成のための走行ログを保存
+		//obj["Log"]でKeyをPlayer.posListでvalueを設定
 		obj ["Log"] = Player.posList;
 		
 		//この処理でサーバーに書き込む

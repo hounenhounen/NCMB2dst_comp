@@ -1,26 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-	// スコアを表示するGUIText
-	public GUIText scoreGUIText;
-	
-	// ハイスコアを表示するGUIText
-	//public GUIText highScoreGUIText;
+	public Text scoreText;
 
-	// ハイスコアを表示するGUIText
-	public GUIText saveScoreGUIText = null;
+	public Text saveScoreText;
 
 	// スコア
 	private int score;
-	
-	// ハイスコア
-	//private int highScore;
-	
-	// PlayerPrefsで保存するためのキー
-	//private string highScoreKey = "highScore";
-	// PlayerPrefsで保存するためのキー
 	private string ScoreKey = "Score";
+
 	void Start ()
 	{
 		Initialize ();
@@ -28,14 +18,8 @@ public class Score : MonoBehaviour
 	
 	void Update ()
 	{
-		// スコアがハイスコアより大きければ
-		/*if (highScore < score) {
-			highScore = score;
-		}*/
-		
 		// スコア・ハイスコアを表示する
-		scoreGUIText.text = score.ToString ();
-		//highScoreGUIText.text = "HighScore : " + highScore.ToString ();
+		scoreText.text = "Score: " + score.ToString ();
 
 	}
 	
@@ -44,9 +28,8 @@ public class Score : MonoBehaviour
 	{
 		// スコアを0に戻す
 		score = 0;
-		
-		// ハイスコアを取得する。保存されてなければ0を取得する。
-		// highScore = PlayerPrefs.GetInt (highScoreKey, 0);
+		Debug.Log (score.ToString ());
+
 	}
 	
 	// ポイントの追加

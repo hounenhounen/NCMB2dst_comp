@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI;
 public class Manager : MonoBehaviour
 {
 	// Playerプレハブ
@@ -7,41 +7,33 @@ public class Manager : MonoBehaviour
 	public GameObject ghost;
 	// タイトル
 	private GameObject title;
-
-	private bool leaderBoardButton;
-	private bool ghostButton;
+	private GameObject ghostButton;
 
 	 void Start ()
 	{
 		// Titleゲームオブジェクトを検索し取得する
 		title = GameObject.Find ("Title");
+		ghostButton = GameObject.Find ("GhostButton");
 	}
 	
-	void OnGUI ()
+	void Update ()
 	{
 		// ゲーム中ではなく、タッチまたはマウスクリック直後であればtrueを返す。
 		if (!IsPlaying()) {
-			drawButton();
-			// 画面タップでゲームスタート
-			if ( Event.current.type == EventType.MouseDown) 
-				GameStart (false);
+			
+			if (Bg_ghost.readyGhost == true)
+				ghostButton.gameObject.SetActive (true);
+			else
+				ghostButton.gameObject.SetActive (false);
 
-			// ランキングボタンが押されたら
-			if ( leaderBoardButton )
-				Application.LoadLevel("LeaderBoard");
 
-			//—--ゴーストボタンが押下場合の挙動定義---------
-			if ( ghostButton )
-				GameStart (true);
-			//----------------------------------------
 		}
 	}
 
 	void GameStart (bool withGhost)
 	{
 		// ゲームスタート時に、タイトルを非表示にしてプレイヤーを作成する
-		title.SetActive (false);
-
+		title.gameObject.SetActive(false);
 		//------------------------------------------------------------------------------
 		if (withGhost == true) {
 			// ゴーストボタンを押下したらゴーストを表示する
@@ -59,7 +51,6 @@ public class Manager : MonoBehaviour
 		FindObjectOfType<Score> ().Save ();
 		Application.LoadLevel ("SaveScore");
 		// ゲームオーバー時に、タイトルを表示する
-		//title.SetActive (true);
 	}
 	
 	public bool IsPlaying ()
@@ -68,16 +59,15 @@ public class Manager : MonoBehaviour
 		return title.activeSelf == false;
 	}
 
-	private void drawButton() {
-		// ボタンの設置
-		int btnW = 140, btnH = 50;
-		GUI.skin.button.fontSize = 18;
-		leaderBoardButton = GUI.Button( new Rect(0*btnW, 0, btnW, btnH), "Leader Board" );
+	public void tapStart(){
+		GameStart (false);
+	}
 
-		//---Bg_ghost.csでゴーストデータを取得できたら、ゴーストボタンを表示する-------------
-		if (Bg_ghost.readyGhost == true) {
-				ghostButton = GUI.Button (new Rect (btnW, 0, btnW, btnH), "Ghost");
-		}
-		//--------------------------------------------------------------------------
+	public void leaderBoardButtonDown(){
+		Application.LoadLevel("LeaderBoard");
+	}
+
+	public void ghostButtonDown(){
+		GameStart (true);
 	}
 }

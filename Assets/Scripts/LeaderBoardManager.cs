@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.UI;
 public class LeaderBoardManager : MonoBehaviour {
 	
 	private LeaderBoard lBoard;
-	public GameObject[] top = new GameObject[5];
+	public Text[] top = new Text[5];
 
 	bool isRankFetched;
 	bool isLeaderBoardFetched;
@@ -16,11 +16,6 @@ public class LeaderBoardManager : MonoBehaviour {
 	void Start ()
 	{
 		lBoard = new LeaderBoard();
-		
-		// テキストを表示するゲームオブジェクトを取得
-		for( int i = 0; i < 5; ++i ) {
-			top[i] = GameObject.Find ("Top" + i);
-		}
 		
 		// フラグ初期化
 		isRankFetched  = false;
@@ -41,24 +36,14 @@ public class LeaderBoardManager : MonoBehaviour {
 			
 			// 取得したトップ5ランキングを表示
 			for( int i = 0; i < lBoard.topRankers.Count; ++i) {
-				top[i].GetComponent<GUIText>().text = i+1 + ". " + lBoard.topRankers[i].print();
+				top[i].text = i+1 + ". " + lBoard.topRankers[i].print();
 			}
 
 			isLeaderBoardFetched = true;
 		}
 	}
-	
-	void OnGUI () {
-		drawMenu();
-		// 戻るボタンが押されたら
-		if( backButton )
-			Application.LoadLevel("Stage");
-	}
-	
-	private void drawMenu() {
-		// ボタンの設置
-		int btnW = 170, btnH = 30;
-		GUI.skin.button.fontSize = 20;
-		backButton = GUI.Button( new Rect(Screen.width*1/2 - btnW*1/2, Screen.height*7/8 - btnH*1/2, btnW, btnH), "Back" );
-	}
+
+	public void BackButton(){
+		Application.LoadLevel("Stage");
+	} 
 }
