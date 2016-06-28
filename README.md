@@ -24,7 +24,7 @@ http://mb.cloud.nifty.com/doc/current/introduction/quickstart_unity.html
 スコア保存のコードはAsset>Scriptsの「SaveScore.cs」にて行っています。
 下記のコードが、スコア保存に関するコードになります、ご参照ください。
 
-```
+```csharp:
 //mobile backendのSDKを読み込む
 using NCMB; 
 using UnityEngine;
@@ -63,7 +63,7 @@ public class SaveScore : MonoBehaviour {
 コードとしてはAsset>Scriptsの「Player.cs」にて行っています。
 下記のコードをご参照ください。
 
-```
+```csharp:
 
 public class Player : MonoBehaviour
 {
@@ -117,7 +117,7 @@ LeaderBoardシーンには以下のスクリプトが含まれています。
 ニフティクラウド mobile backendから子スコアのデータを取得するロジックは
 Asset>Scripts 「LeaderBoard.cs」に記載されています。
 
-```
+```csharp:
 // データストアの「Score」クラスから検索
 NCMBQuery<NCMBObject> query = new NCMBQuery<NCMBObject> ("Score");
 
@@ -162,7 +162,7 @@ query.FindAsync ((List<NCMBObject> objList ,NCMBException e) => {
 
 "Log"を引出すコードはSatgeシーンを起動した際に呼び出すBg_ghost.csに実装しています。
 
-```
+```csharp:
 using NCMB; //mobile backendのSDKを読み込む
 ・
 ・
@@ -205,7 +205,7 @@ public class Bg_ghost : MonoBehaviour {
 
 GhostのGameObjectにはGhost.csというスクリプトがアタッチされており、そこで"Log"をつかってGameObjectを操作するコードが書かれています。
 
-```
+```csharp:
 using NCMB; //mobile backendのSDKを読み込む
 ・
 ・
